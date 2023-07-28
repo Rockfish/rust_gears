@@ -48,12 +48,12 @@ impl Default for GearConfig {
     }
 }
 
-fn y_coordinate(a: f32, r: f32) -> f32 {
-    a.to_radians().cos() * r
+fn x_coordinate(a: f32, r: f32) -> f32 {
+    r * a.to_radians().cos()
 }
 
-fn x_coordinate(a: f32, r: f32) -> f32 {
-    a.to_radians().sin() * r
+fn y_coordinate(a: f32, r: f32) -> f32 {
+    r * a.to_radians().sin()
 }
 
 fn draw_radius(config: GearConfig, angle: f32, radius_var: f32) {
@@ -148,12 +148,13 @@ fn involute(config: &GearConfig, angle: f32, len: f32, direction: Direction) -> 
     let inc: f32;
     let right_angle: f32;
 
-    if direction == Direction::Back {
+    if direction == Direction::Front {
+        //starting_angle = angle + config.step_angle;
         starting_angle = angle;
         inc = 5.0;
         right_angle = -90.0;
     } else {
-        starting_angle = angle + config.step_angle;
+        starting_angle = angle + config.step_angle / 3.0;  // todo: calculate angle offset for back side
         inc = -5.0;
         right_angle = 90.0;
     }
@@ -217,7 +218,8 @@ fn add_tooth(config: &GearConfig, line_path: &mut Vec<Vec2>, angle: f32, len: f3
 pub fn gear_path(config: &GearConfig) -> Vec<Vec2> {
     let mut line_path: Vec<Vec2> = Vec::new();
 
-    for i in (0..15).rev() {
+    // for i in (0..15).rev() {
+    for i in 0..15 {
         let angle = (i as f32) * config.step_angle;
         add_tooth(config, &mut line_path, angle, config.root_circle);
     }
@@ -228,7 +230,8 @@ pub fn gear_path(config: &GearConfig) -> Vec<Vec2> {
 pub fn gear_spokes(config: &GearConfig) -> Vec<(Vec2, Vec2)> {
     let mut spokes: Vec<(Vec2, Vec2)> = Vec::new();
 
-    for i in (0..15).rev() {
+    // for i in (0..15).rev() {
+    for i in 0..15 {
         let angle = (i as f32) * config.step_angle;
         let (sin, cos) = angle.to_radians().sin_cos();
         let v1 = Vec2::new(config.x_offset,config.y_offset);
@@ -252,7 +255,7 @@ pub fn draw_gear(config: &GearConfig, color: Color) {
     let v2 = line_path[0] + Vec2::new(config.x_offset, config.y_offset);
     draw_line(v1.x, v1.y, v2.x, v2.y, 2.0, color);
 
-    draw_circle_lines(config.x_offset, config.y_offset, 15.0, 2.0, color);
+    // draw_circle_lines(config.x_offset, config.y_offset, 15.0, 2.0, color);
 
 }
 
