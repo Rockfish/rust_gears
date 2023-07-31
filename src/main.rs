@@ -32,7 +32,7 @@ async fn main() {
 
     let rust_logo = load_texture("assets/rust.png").await.unwrap();
     let texture: Texture2D = load_texture("assets/color_bars.png").await.unwrap();
-t
+
     loop {
         if let Some(key) = get_last_key_pressed() {
             if key == KeyCode::Escape {
