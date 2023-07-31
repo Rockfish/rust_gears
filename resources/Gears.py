@@ -22,10 +22,10 @@ def deg(rad):
 	return rad * 180.0 / pi
 	
 def ycord(a, r):
-	return cos(rad(a)) * r
+	return sin(rad(a)) * r
 
 def xcord(a, r):
-	return sin(rad(a)) * r
+	return cos(rad(a)) * r
 
 def radius(angle, length):
 	x = xcord(angle, length)

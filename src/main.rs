@@ -31,8 +31,8 @@ async fn main() {
     println!("root_angle in degrees: {}", config.root_angle.to_degrees());
 
     let rust_logo = load_texture("assets/rust.png").await.unwrap();
-    let texture: Texture2D = load_texture("assets/strips.png").await.unwrap();
-
+    let texture: Texture2D = load_texture("assets/color_bars.png").await.unwrap();
+t
     loop {
         if let Some(key) = get_last_key_pressed() {
             if key == KeyCode::Escape {

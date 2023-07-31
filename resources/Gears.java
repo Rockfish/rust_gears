@@ -283,11 +283,11 @@ public class Gears extends javax.swing.JComponent {
 	}
 
 	public double ycord(double a, double r) {
-		return cos(rad(a)) * r;
+		return sin(rad(a)) * r;
 	}
 	
 	public double xcord(double a, double r) {
-		return sin(rad(a)) * r;
+		return cos(rad(a)) * r;
 	}
 
 	public void drawRadius(java.awt.Graphics2D g, double angle, double radius) {
