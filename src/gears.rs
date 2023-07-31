@@ -300,13 +300,13 @@ pub fn draw_spokes(config: &GearConfig, color: Color) {
 }
 
 
-pub fn draw_gear_mesh(config: &GearConfig, color: Color, texture: impl Into<Option<Texture2D>>) {
+pub fn draw_gear_mesh(config: &GearConfig, color: Color, texture: Option<&Texture2D>) {
     let mut vertices = vec![Vertex {
         position: Vec3 {
             x: config.x_offset,
             // y: config.y_offset,
             // z: 0.0,
-            y: 0.0,
+            y: 1.0,
             z: config.y_offset,
         },
         uv: Vec2 { x: 0.0, y: 0.0 },
@@ -322,7 +322,7 @@ pub fn draw_gear_mesh(config: &GearConfig, color: Color, texture: impl Into<Opti
                 x: config.x_offset + v.x,
                 // y: config.y_offset + v.y,
                 // z: 0.0,
-                y: 0.0,
+                y: 1.0,
                 z: config.y_offset + v.y,
             },
             uv,
@@ -347,7 +347,7 @@ pub fn draw_gear_mesh(config: &GearConfig, color: Color, texture: impl Into<Opti
     let mesh = Mesh {
         vertices,
         indices,
-        texture: texture.into()
+        texture
     };
 
     draw_mesh(&mesh);

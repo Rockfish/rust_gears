@@ -17,6 +17,9 @@ fn window_conf() -> Conf {
 #[macroquad::main(window_conf)]
 async fn main() {
     let mut config = GearConfig {
+        root_circle_radius: 10.0,
+        pitch_circle_radius: 11.0,
+        outside_circle_radius: 13.0,
         x_offset: 0.0,
         y_offset: 0.0,
         ..Default::default()
@@ -27,6 +30,8 @@ async fn main() {
     println!("Gear config: \n{:?}", config);
     println!("root_angle in degrees: {}", config.root_angle.to_degrees());
 
+    let rust_logo = load_texture("assets/rust.png").await.unwrap();
+    let texture: Texture2D = load_texture("assets/strips.png").await.unwrap();
 
     loop {
         if let Some(key) = get_last_key_pressed() {
@@ -38,17 +43,19 @@ async fn main() {
         clear_background(LIGHTGRAY);
 
         set_camera(&Camera3D {
-            position: vec3(-20., 600., 0.),
+            position: vec3(-20., 20., 20.),
             up: vec3(0., 1., 0.),
             target: vec3(0.0, 0.0, 0.),
             ..Default::default()
         });
 
         let color = Color::new(1.0, 1.0, 1.0, 1.00);
-        let texture: Texture2D = load_texture("assets/strips.png").await.unwrap();
-        draw_gear_mesh(&config, color, texture);
+
+        draw_gear_mesh(&config, color, Some(&texture));
 
         draw_grid(20, 1., BLACK, GRAY);
+
+        draw_cube(vec3(-5., 1., -2.), vec3(5., 5., 5.), Some(&rust_logo), WHITE);
 
 
         // draw_gear(&config, BLACK);
